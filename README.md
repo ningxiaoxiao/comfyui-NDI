@@ -12,8 +12,11 @@ Or clone via GIT, starting from ComfyUI installation directory:
 cd custom_nodes
 git clone https://github.com/Acly/comfyui-tooling-nodes.git
 ```
-
+You also need to install `ndi-python`
+```
+pip install ndi-python
+```
 Restart ComfyUI and the nodes are functional.
-## add node
 
+## add node
 Right-click on the NDI group to find options for receiving and sending images.
