@@ -30,10 +30,33 @@ Restart ComfyUI and the nodes are functional.
 Right-click on the NDI group to find options for receiving and sending images.
 
 ## link ndi input
-1.You can use the `Webcam Input` from NDI tools to turn your camera feed into an NDI video resource.
+1. You can use the `Screen Capture` from NDI tools to turn your camera feed into an NDI video resource.
 
-2.Add an NDI receive image node in ComfyUI and select your webcam node in the node settings.
+1. Add an NDI receive image node in ComfyUI and select your webcam node in the node settings.
+> [!WARNING]
+> Because I couldn't find a way to continuously run ndi_find, you should open your NDI input before starting ComfyUI.
+> If create_task is used, the comfyui main http server may not start.
+> If you have a solution, feel free to submit a pull request.
+ 
 
 ## look ndi output
 If you want to see the real-time output of the model, just add an NDI send image node and connect it to the image output. You can then view an NDI resource named `ComfyUI`.
 You can use a software called `Studio Monitor` from NDI tools to check the resources available on the current network.
+
+# Example
+## Screen Capture
+1. Start the `Screen Capture` in NDI Tools.
+
+1. Set the region of interest.
+
+![image](https://github.com/ningxiaoxiao/comfyui-NDI/assets/18553762/c146f1f7-7a63-4a0a-927e-63f981b7c873)
+
+## webcam input
+1. Start the `Screen Capture` in NDI Tools.
+
+1. In the "Webcam Video Source," locate your webcam.
+
+![image](https://github.com/ningxiaoxiao/comfyui-NDI/assets/18553762/930bb416-775f-4a74-80b5-ecf1b70249e7)
+
+3. In the ndi reciveimage ComfyUI node, you can now find the NDI source named "your-pc-name(your-webcam-name)."
+
