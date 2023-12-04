@@ -10,7 +10,14 @@ If you have any requirements, please let me know.
 have fun!
 # about Ndi
 https://ndi.video/
+
+![image](https://github.com/ningxiaoxiao/comfyui-NDI/assets/18553762/7221b5b0-c342-4061-9838-1e2af1808bf6)
+
 # how to use
+## download ndi tools
+
+https://ndi.video/tools/ndi-core-suite/
+
 ## Installation
 
 Download the repository and unpack into the `custom_nodes` folder in the ComfyUI installation directory.
