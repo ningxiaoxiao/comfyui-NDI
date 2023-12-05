@@ -40,10 +40,12 @@ Right-click on the NDI group to find options for receiving and sending images.
 1. You can use the `Screen Capture` from NDI tools to turn your camera feed into an NDI video resource.
 
 1. Add an NDI receive image node in ComfyUI and select your webcam node in the node settings.
-> [!WARNING]
-> Because I couldn't find a way to continuously run ndi_find, you should open your NDI input before starting ComfyUI.
-> If create_task is used, the comfyui main http server may not start.
-> If you have a solution, feel free to submit a pull request.
+
+1. If you cannot find your NDI resources in the node, you should click the `update ndi list` button in the menu.
+
+
+   ![image](https://github.com/ningxiaoxiao/comfyui-NDI/assets/18553762/70e4748f-cd74-486d-8149-e722cac67c27)
+
  
 
 ## look ndi output
