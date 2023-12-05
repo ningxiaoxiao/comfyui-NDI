@@ -119,15 +119,13 @@ class NDIReceiveImage:
         rgba =  cv2.cvtColor(v.data, cv2.COLOR_YUV2RGBA_Y422)
 
         img= Image.fromarray(rgba)
+        mask = np.array(img.getchannel("A")).astype(np.float32) / 255.0
+        
         img = img.convert("RGB")
         img = np.array(img).astype(np.float32) / 255.0
         img = torch.from_numpy(img)[None,]
         # ndi source always have alpha channel ?????
-        mask=[]
-        if "A" in img.getbands():
-            mask = np.array(img.getchannel("A")).astype(np.float32) / 255.0
-        else:
-            mask = torch.zeros((64, 64), dtype=torch.float32, device="cpu")
+      
         ndi.framesync_free_video(self.ndi_framesync, v)
         
         return (img,mask)
