@@ -25,7 +25,7 @@ Download the repository and unpack into the `custom_nodes` folder in the ComfyUI
 Or clone via GIT, starting from ComfyUI installation directory:
 ```
 cd custom_nodes
-git clone https://github.com/Acly/comfyui-tooling-nodes.git
+git clone https://github.com/ningxiaoxiao/comfyui-NDI.git
 ```
 You also need to install `ndi-python`
 ```
