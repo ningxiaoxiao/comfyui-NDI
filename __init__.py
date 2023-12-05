@@ -7,6 +7,8 @@ import torch
 from server import PromptServer, BinaryEventTypes
 
 print("Loading ComfyUI-NDI nodes begin----------")
+
+
 server = PromptServer.instance
 import NDIlib as ndi
 if not ndi.initialize():
@@ -16,10 +18,20 @@ ndi_find=ndi.find_create_v2()
 if ndi_find is None:
     raise Exception("can not init ndi find")
 
-# need wait for ndi sources,anyway to start ndi find async?
-time.sleep(2)
-ndi.find_wait_for_sources(ndi_find, 1000)
-ndi_sources = ndi.find_get_current_sources(ndi_find)
+ndi_sources=["not_find_ndi_source"]
+
+@PromptServer.instance.routes.get('/ndi/update_list')
+async def update_ndi_list(r):
+    # need wait for ndi sources,
+    # anyway to start loop forever?
+    # 
+    global ndi_sources
+    print("update_ndi_list")
+    time.sleep(2)
+    ndi.find_wait_for_sources(ndi_find, 1000)
+    ndi_sources = ndi.find_get_current_sources(ndi_find)
+    
+PromptServer.instance.loop.create_task(update_ndi_list(None))
 
 create_params = ndi.SendCreate()
 create_params.clock_video = False
@@ -27,6 +39,8 @@ create_params.clock_audio = False
 create_params.ndi_name = 'ComfyUI-NDI'
 
 ndi_send = ndi.send_create(create_params)
+
+
 
 print("Loading ComfyUI-NDI nodes end----------")
 class NDISendImage:
@@ -108,13 +122,20 @@ class NDIReceiveImage:
                 
             ndi.recv_connect(self.ndi_recv, ndi_sources[findindices[0]])
             self.ndi_framesync = ndi.framesync_create(self.ndi_recv)
+            print("change ndi source:{}->{}".format(self.cur_ndi_name,ndi_name))
             self.cur_ndi_name=ndi_name
                 
-        x=0
-        while x==0:
+        wait_recv_count=0
+        while True:
             v = ndi.framesync_capture_video(self.ndi_framesync)
-            x=v.xres
-            time.sleep(0.1)
+            if v.xres==0:
+                time.sleep(0.3)
+                wait_recv_count+=1
+                if wait_recv_count>10:
+                    raise Exception("can not receive ndi source try it again!")
+            else:
+                break
+            
         
         rgba =  cv2.cvtColor(v.data, cv2.COLOR_YUV2RGBA_Y422)
 
@@ -144,6 +165,7 @@ class NDIReceiveImage:
         # make ndi
         print("NDIReceiveImage __init__")
         
+WEB_DIRECTORY = "js"        
 NODE_CLASS_MAPPINGS = {
     "NDI_LoadImage": NDIReceiveImage,
     "NDI_SendImage": NDISendImage,
