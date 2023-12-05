@@ -122,9 +122,12 @@ class NDIReceiveImage:
         img = img.convert("RGB")
         img = np.array(img).astype(np.float32) / 255.0
         img = torch.from_numpy(img)[None,]
-        # ndi source always have alpha channel
-        mask = np.array(img.getchannel("A")).astype(np.float32) / 255.0
-        mask = 1.0 - torch.from_numpy(mask)
+        # ndi source always have alpha channel ?????
+        mask=[]
+        if "A" in img.getbands():
+            mask = np.array(img.getchannel("A")).astype(np.float32) / 255.0
+        else:
+            mask = torch.zeros((64, 64), dtype=torch.float32, device="cpu")
         ndi.framesync_free_video(self.ndi_framesync, v)
         
         return (img,mask)
