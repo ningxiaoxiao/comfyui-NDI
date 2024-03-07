@@ -31,6 +31,11 @@ You also need to install `ndi-python`
 ```
 pip install ndi-python
 ```
+
+> [!WARNING]
+> my python version is `3.10.9`,
+> If you are using `ComfyUI_windows_portable`, you should use `ComfyUI_windows_portable\python_embeded\python.exe -m pip install ndi-python`
+
 Restart ComfyUI and the nodes are functional.
 
 ## add node
