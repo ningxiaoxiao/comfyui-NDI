@@ -46,12 +46,12 @@ Right-click on the NDI group to find options for receiving and sending images.
 
 1. Add an NDI receive image node in ComfyUI and select your webcam node in the node settings.
 
-1. If you cannot find your NDI resources in the node, you should click the `update ndi list` button in the menu.
+1. If you cannot find your NDI resources in the node, click the **🔴 NDI** floating button in the bottom-right corner to open the NDI Source panel, then click **Refresh**. The panel will discover all NDI sources on the network and automatically sync them to the node's dropdown.
 
+   ![NDI Source Panel](docs/ndi-panel.png)
 
-   ![image](https://github.com/ningxiaoxiao/comfyui-NDI/assets/18553762/70e4748f-cd74-486d-8149-e722cac67c27)
-
- 
+   > **Tip:** Enable **Auto** in the panel for automatic 5-second polling.
+   > Click any source name to copy it to the clipboard.
 
 ## look ndi output
 If you want to see the real-time output of the model, just add an NDI send image node and connect it to the image output. You can then view an NDI resource named `ComfyUI`.
