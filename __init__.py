@@ -31,6 +31,19 @@ async def update_ndi_list(r):
     ndi.find_wait_for_sources(ndi_find, 1000)
     ndi_sources = ndi.find_get_current_sources(ndi_find)
     
+    sources = []
+    for s in ndi_sources:
+        sources.append({
+            "name": s.ndi_name,
+            "url": getattr(s, 'url_address', ''),
+        })
+    
+    from aiohttp import web
+    return web.json_response({
+        "sources": sources,
+        "count": len(sources)
+    })
+    
 PromptServer.instance.loop.create_task(update_ndi_list(None))
 
 create_params = ndi.SendCreate()
