@@ -27,14 +27,15 @@ Or clone via GIT, starting from ComfyUI installation directory:
 cd custom_nodes
 git clone https://github.com/ningxiaoxiao/comfyui-NDI.git
 ```
-You also need to install `ndi-python`
+You also need to install the Python dependencies (`ndi-python`, `opencv-python`):
 ```
-pip install ndi-python
+pip install -r requirements.txt
 ```
+When installing via ComfyUI-Manager, these dependencies are installed automatically.
 
 > [!WARNING]
 > my python version is `3.10.9`,
-> If you are using `ComfyUI_windows_portable`, you should use `ComfyUI_windows_portable\python_embeded\python.exe -m pip install ndi-python`
+> If you are using `ComfyUI_windows_portable`, you should use `ComfyUI_windows_portable\python_embeded\python.exe -m pip install -r requirements.txt`
 
 Restart ComfyUI and the nodes are functional.
 
