@@ -1,2 +1,4 @@
 ndi-python
 opencv-python
+pillow
+numpy

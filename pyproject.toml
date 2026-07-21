@@ -6,6 +6,8 @@ license = { file = "LICENSE" }
 dependencies = [
     "ndi-python",
     "opencv-python",
+    "pillow",
+    "numpy",
 ]
 
 [project.urls]
