@@ -1,18 +1,36 @@
 import hashlib
 import time
-import cv2
-from PIL import Image
-import numpy as np
-import torch
+
+try:
+    import cv2
+    from PIL import Image
+    import numpy as np
+    import torch
+except ImportError as e:
+    raise ImportError(
+        f"[comfyui-NDI] Missing Python dependency: {e.name}. "
+        "Please run: pip install -r requirements.txt "
+        "(ComfyUI-Manager installs these automatically on (re)install)"
+    ) from e
+
 from server import PromptServer, BinaryEventTypes
 
 print("Loading ComfyUI-NDI nodes begin----------")
 
 
 server = PromptServer.instance
-import NDIlib as ndi
+try:
+    import NDIlib as ndi
+except ImportError as e:
+    raise ImportError(
+        "[comfyui-NDI] Missing Python package 'ndi-python'. "
+        "Please run: pip install ndi-python"
+    ) from e
 if not ndi.initialize():
-    raise Exception("ndi canot init")
+    raise Exception(
+        "[comfyui-NDI] Failed to initialize the NDI runtime. "
+        "Please install the NDI SDK/Tools first: https://ndi.video/tools/ndi-core-suite/"
+    )
 
 ndi_find=ndi.find_create_v2()
 if ndi_find is None:
